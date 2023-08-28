@@ -1,3 +1,33 @@
+(* sort tuples ('a * int) *)
+let sort_array lst = List.sort (fun (a1, a2) (b1, b2) -> compare a2 b2) lst
+
+(* flatten 'a list list -> 'a list *)
+let flatten lst =
+  let rec aux acc = function
+  | [] -> acc
+  | One x :: t -> aux (x :: acc) t
+  | Many y :: t -> aux (aux acc y) t in
+  List.rev (aux [] lst)
+
+(* explode string -> char list *)
+let explode (s: string) = List.init (String.length s) (String.get s)
+
+(* is_prime fn *)
+let is_prime n =
+  let rec aux m n = m * m > n || (n mod m != 0 && aux (m+1) n)
+  in aux 2 (abs n)
+
+(* range fn *)
+let rec range m n = if m < n then m :: aux (m + 1) n else [n]
+
+let rec range_steps ?(step=1) n m =
+  if n > m then []
+  else n :: range_steps ~step (n+step) m
+
+let range_asc_desc n m =
+  let rec asc n m = if n < m then n :: asc (n+1) m else [m] in
+  let rec desc n m = if n > m then n :: desc (n-1) m else [m] in
+  if n < m then asc n m else desc n m
 
 (* making operators *)
 let rec sum = function
