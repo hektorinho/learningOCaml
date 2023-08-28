@@ -3,11 +3,15 @@ let sort_array lst = List.sort (fun (a1, a2) (b1, b2) -> compare a2 b2) lst
 
 (* flatten 'a list list -> 'a list *)
 let flatten lst =
+  let sub acc lst =
+    let rec rsub acc = function
+    | [] -> acc
+    | h :: t -> h :: rsub acc t in
+    List.rev (rsub acc lst) in
   let rec aux acc = function
   | [] -> acc
-  | One x :: t -> aux (x :: acc) t
-  | Many y :: t -> aux (aux acc y) t in
-  List.rev (aux [] lst)
+  | h :: t -> aux (sub acc h) t in
+  aux [] lst
 
 (* explode string -> char list *)
 let explode (s: string) = List.init (String.length s) (String.get s)
