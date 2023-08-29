@@ -29,7 +29,7 @@ let is_prime n =
   in aux 2 (abs n)
 
 (* range fn *)
-let rec range m n = if m < n then m :: aux (m + 1) n else [n]
+let rec range m n = if m < n then m :: range (m + 1) n else [n]
 
 let rec range_steps ?(step=1) n m =
   if n > m then []
