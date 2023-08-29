@@ -1,3 +1,10 @@
+(* counter *)
+let next =
+  let counter = ref 0 in 
+  fun () ->
+    Int.incr counter;
+    !counter
+
 (* sort tuples ('a * int) *)
 let sort_array lst = List.sort (fun (a1, a2) (b1, b2) -> compare a2 b2) lst
 
